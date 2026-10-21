@@ -34,7 +34,7 @@ function ChatWidget() {
       >
         <div className="bg-secondary text-secondary-foreground px-5 py-4 flex items-center gap-3">
           <img
-            src="/brand/mascota-cabeza.png"
+            src="/brand/bebo-cabeza.png"
             alt=""
             className="w-10 h-10 rounded-full bg-[#010066] object-contain p-0.5"
           />
@@ -91,7 +91,7 @@ function ChatWidget() {
         ) : (
           <>
             <img
-              src="/brand/mascota-cabeza.png"
+              src="/brand/bebo-cabeza.png"
               alt=""
               className="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"
             />

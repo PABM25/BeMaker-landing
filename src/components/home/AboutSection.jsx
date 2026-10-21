@@ -22,10 +22,10 @@ export default function AboutSection() {
           <Reveal delay={0.15} className="mt-10">
             <div className="group relative flex items-end gap-5 rounded-3xl bg-[#F2E6D8] dark:bg-card dark:border dark:border-border px-6 pt-6 overflow-hidden">
               <img
-                src="/brand/mascota-frente.png"
+                src="/brand/bebo.png"
                 alt="Mascota de BeMaker"
-                width={334}
-                height={461}
+                width={700}
+                height={942}
                 loading="lazy"
                 className="w-24 sm:w-28 h-auto -mb-3 transition-transform duration-500 group-hover:-translate-y-2 group-hover:-rotate-3"
               />

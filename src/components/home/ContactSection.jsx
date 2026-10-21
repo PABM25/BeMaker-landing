@@ -120,7 +120,7 @@ function ContactForm({ preselected }) {
               transition={{ type: "spring", stiffness: 220, damping: 14, delay: 0.1 }}
               className="relative mb-6"
             >
-              <img src="/brand/mascota-frente.png" alt="" width={334} height={461} className="w-28 h-auto" />
+              <img src="/brand/bebo.png" alt="" width={700} height={942} className="w-28 h-auto" />
               <span className="absolute -right-2 top-6 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg">
                 <CheckCircle2 className="w-5 h-5" />
               </span>

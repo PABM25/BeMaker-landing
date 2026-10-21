@@ -176,10 +176,10 @@ function HeroVisual() {
             ¡Hola! ¿Automatizamos algo?
           </motion.span>
           <img
-            src="/brand/mascota-frente.png"
+            src="/brand/bebo.png"
             alt=""
-            width={334}
-            height={461}
+            width={700}
+            height={942}
             className="w-full h-auto drop-shadow-[0_24px_30px_rgba(0,0,0,0.45)]"
             style={{ animation: "floatB 6s ease-in-out infinite" }}
           />
