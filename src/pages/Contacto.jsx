@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, CheckCircle2, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import ContactForm from "@/components/ContactForm";
+import { CONTACT } from "@/components/home/data";
 
 const AnimatedElement = ({ children, className = "", delay = 0 }) => {
   const ref = useRef(null);
@@ -79,23 +82,11 @@ function ContactHero() {
 }
 
 function ContactFormSection() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
   const contactInfo = [
-    { icon: Mail, label: "contacto@bemaker.cl" },
-    { icon: Phone, label: "+56 9 3456 7890" },
-    { icon: MapPin, label: "Santiago, Chile" },
-    { icon: Clock, label: "Lun – Vie, 9:00 – 18:00" },
+    { icon: Mail, label: CONTACT.email, href: `mailto:${CONTACT.email}` },
+    { icon: Phone, label: CONTACT.phone, href: `tel:${CONTACT.phoneHref}` },
+    { icon: MapPin, label: CONTACT.city },
+    { icon: Clock, label: CONTACT.hours },
   ];
 
   return (
@@ -108,26 +99,37 @@ function ContactFormSection() {
               Información de contacto
             </h3>
             <div className="space-y-5 relative z-10">
-              {contactInfo.map((c) => (
-                <div key={c.label} className="flex items-center gap-3">
-                  <span className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <c.icon className="w-4 h-4 text-primary" />
-                  </span>
-                  <span className="text-sm text-secondary-foreground/80">
-                    {c.label}
-                  </span>
-                </div>
-              ))}
+              {contactInfo.map((c) => {
+                const content = (
+                  <>
+                    <span className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <c.icon className="w-4 h-4 text-primary" />
+                    </span>
+                    <span className="text-sm text-secondary-foreground/80">
+                      {c.label}
+                    </span>
+                  </>
+                );
+                return c.href ? (
+                  <a key={c.label} href={c.href} className="flex items-center gap-3 hover:text-primary">
+                    {content}
+                  </a>
+                ) : (
+                  <div key={c.label} className="flex items-center gap-3">
+                    {content}
+                  </div>
+                );
+              })}
             </div>
             <div className="mt-9 pt-8 border-t border-border/15 relative z-10">
               <p className="text-sm text-secondary-foreground/60 leading-relaxed">
                 También puedes visitar nuestro{" "}
-                <a
-                  href="#"
+                <Link
+                  to="/Portafolio"
                   className="text-accent font-semibold hover:underline"
                 >
                   portafolio de proyectos
-                </a>{" "}
+                </Link>{" "}
                 para ver casos reales de PYMEs que ya escalaron con nosotros.
               </p>
             </div>
@@ -135,109 +137,7 @@ function ContactFormSection() {
         </AnimatedElement>
 
         <AnimatedElement className="lg:col-span-3" delay={100}>
-          <div className="h-full rounded-2xl bg-card text-card-foreground p-8 sm:p-9 border border-border/10 shadow-sm">
-            <h3 className="text-2xl font-bold mb-2">Envíanos un mensaje</h3>
-            <p className="text-sm text-card-foreground/60 mb-7">
-              Completa el formulario y nuestro equipo se pondrá en contacto
-              contigo a la brevedad.
-            </p>
-
-            <div className={submitted ? "block" : "hidden"}>
-              <div className="flex items-center gap-3 rounded-xl bg-primary/10 text-primary px-5 py-4 mb-2">
-                <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
-                <p className="text-sm font-medium">
-                  ¡Gracias! Recibimos tu mensaje y te contactaremos pronto.
-                </p>
-              </div>
-            </div>
-
-            <form
-              onSubmit={handleSubmit}
-              className={submitted ? "hidden" : "block space-y-5"}
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="text-xs font-semibold text-card-foreground/70 mb-1.5 block"
-                  >
-                    Nombre completo
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    value={form.name}
-                    onChange={handleChange}
-                    placeholder="Tu nombre"
-                    className="w-full min-h-[44px] rounded-lg bg-background border border-border/30 px-4 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="text-xs font-semibold text-card-foreground/70 mb-1.5 block"
-                  >
-                    Correo electrónico
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder="tu@empresa.cl"
-                    className="w-full min-h-[44px] rounded-lg bg-background border border-border/30 px-4 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                  />
-                </div>
-              </div>
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="text-xs font-semibold text-card-foreground/70 mb-1.5 block"
-                >
-                  Teléfono
-                </label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={form.phone}
-                  onChange={handleChange}
-                  placeholder="+56 9 1234 5678"
-                  className="w-full min-h-[44px] rounded-lg bg-background border border-border/30 px-4 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="message"
-                  className="text-xs font-semibold text-card-foreground/70 mb-1.5 block"
-                >
-                  Cuéntanos sobre tu proyecto
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={5}
-                  value={form.message}
-                  onChange={handleChange}
-                  placeholder="Necesito una landing page para..."
-                  className="w-full rounded-lg bg-background border border-border/30 px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
-                />
-              </div>
-              <button
-                type="submit"
-                className="relative overflow-hidden w-full sm:w-auto inline-flex items-center justify-center gap-2 min-h-[44px] px-8 py-3 rounded-full bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300"
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent animate-[shimmer_3s_ease-in-out_infinite] bg-[length:200%_100%]" />
-                <span className="relative z-10">Enviar mensaje</span>
-                <Send className="w-4 h-4 relative z-10" />
-              </button>
-            </form>
-          </div>
+          <ContactForm />
         </AnimatedElement>
       </div>
     </section>
