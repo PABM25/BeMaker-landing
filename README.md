@@ -1,16 +1,38 @@
-# React + Vite
+# BeMaker — sitio web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sitio de [bemaker.cl](https://bemaker.cl): portada con servicios, casos de éxito, portafolio y contacto.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 18 + Vite
+- Tailwind CSS y componentes de shadcn/ui (Radix)
+- Framer Motion para las animaciones
+- React Router (`/`, `/Portafolio`, `/Contacto`)
 
-## React Compiler
+## Desarrollo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+cp .env.example .env    # configura el formulario de contacto
+npm run dev
+```
 
-## Expanding the ESLint configuration
+| Comando | Qué hace |
+| --- | --- |
+| `npm run dev` | Servidor local con recarga en caliente |
+| `npm run build` | Compila el sitio en `dist/` |
+| `npm run lint` | Revisa el código con ESLint |
+| `npm run preview` | Sirve la versión compilada |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Formulario de contacto
+
+El formulario de la portada y el de `/Contacto` son el mismo componente: `src/components/ContactForm.jsx`. El envío está en `src/lib/sendContact.js`.
+
+- Con `VITE_CONTACT_ENDPOINT` configurada, envía los datos por POST (JSON) a esa URL. Funciona con [Formspree](https://formspree.io) sin cambios.
+- Sin la variable, abre el cliente de correo del visitante con el mensaje ya escrito para `contacto@bemaker.cl`.
+
+En el hosting (Vercel, Netlify, etc.) agrega `VITE_CONTACT_ENDPOINT` en las variables de entorno del proyecto.
+
+## Datos del sitio
+
+Textos, servicios, métricas y datos de contacto están en `src/components/home/data.js`.
