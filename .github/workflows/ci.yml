@@ -18,4 +18,4 @@ jobs:
       - name: Revisión de código
         run: npm run lint
       - name: Compilación
-        run: npm run build > build.log 2>&1 || { tail -40 build.log | while IFS= read -r l; do echo "::error::$l"; done; exit 1; }
+        run: npm run build
